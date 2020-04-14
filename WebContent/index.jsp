@@ -9,10 +9,13 @@
 <body>
 	<h1>Bem vindo ao Curso de Jsp</h1>
 	<%= "O curso do meu futuro"%>   <%--modo de imprimir em JPS --%>
-
-	<form action="receber-nome.jsp">
-	<input  type= "text" id = "nome" name = "nome">
-	<input  type= "submit" value="Enviar"></input>
-	</form>
+	<br/>
+	
+    <%@ page import = "java.util.Date"%>   <%--diretivas em JPS --%>	
+	<%= "data de hoje : "+ new Date()%>
+	 <%@ page errorPage ="receber-nome.jsp"%>
+	 
+	 <%= 100/2 %>
+    
 </body>
 </html>

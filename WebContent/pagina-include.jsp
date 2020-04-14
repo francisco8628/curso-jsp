@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ page isErrorPage="true" 
-%>
-
-<%= exception %>
 
 </body>
 </html>
