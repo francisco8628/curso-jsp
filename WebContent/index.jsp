@@ -7,8 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Bem vindo ao Curso de Jsp</h1>
-<%out.print("seu curso de inicio"); %>
+	<h1>Bem vindo ao Curso de Jsp</h1>
+	<%= "O curso do meu futuro"%>   <%--modo de imprimir em JPS --%>
 
+	<form action="receber-nome.jsp">
+	<input  type= "text" id = "nome" name = "nome">
+	<input  type= "submit" value="Enviar"></input>
+	</form>
 </body>
 </html>
