@@ -12,21 +12,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Index</h1>
-     <br/>
-   <form action="cabecalho.jsp" method="post">
-    
-   <input type ="text" id="nome" name="nome" >
-    <br/>
-   <input type ="text" id="ano" name="ano">
-    <br/>
-   <input type ="text" id="sexo" name="sexo">
-    <br/>
-   <input type = "submit" value = "testar"/>   
-   
-   </form>
-   
-   
+
+	<form action="LoginServelet" method="post">
+
+		Login:<%-- é o label da pagina --%>
+		<input type="text" id="login" name="login">
+		<br /> 
+		Senha: 
+		<input	type="text" id="senha" name="senha">
+		<br /> 
+		<input type="submit" value = "salvar"> <input />
+
+	</form>
+
+
 
 </body>
 </html>
