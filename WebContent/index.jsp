@@ -1,5 +1,10 @@
+
+<%@page import="beans.BeanCursoJsp"%>
+<jsp:useBean id="calcula" class="beans.BeanCursoJsp"	type="beans.BeanCursoJsp" scope="page" />
+	
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,15 +12,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Bem vindo ao Curso de Jsp</h1>
-	<%= "O curso do meu futuro"%>   <%--modo de imprimir em JPS --%>
-	<br/>
-	
-    <%@ page import = "java.util.Date"%>   <%--diretivas em JPS --%>	
-	<%= "data de hoje : "+ new Date()%>
-	 <%@ page errorPage ="receber-nome.jsp"%>
-	 
-	 <%= 100/2 %>
+	<h1>Index</h1>
+     <br/>
+   <form action="cabecalho.jsp" method="post">
     
+   <input type ="text" id="nome" name="nome" >
+    <br/>
+   <input type ="text" id="ano" name="ano">
+    <br/>
+   <input type ="text" id="sexo" name="sexo">
+    <br/>
+   <input type = "submit" value = "testar"/>   
+   
+   </form>
+   
+   
+
 </body>
 </html>
