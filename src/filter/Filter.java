@@ -26,7 +26,7 @@ public class Filter implements javax.servlet.Filter {
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
 			throws IOException, ServletException {
-
+      //do filter é executado toda vez que um botao da tela é acionado
 		try {
 			arg2.doFilter(arg0, arg1);
 			connection.commit();

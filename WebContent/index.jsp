@@ -13,14 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-       <c:set var = "data"  scope="page" value = "${500*20}"/>
-       
-       <c:out value="${data}"></c:out>
-
-<p/>
-<p/>
-<p/>
-<p/>
+  
 	<form action="LoginServelet" method="post">
 
 		Login:<%-- é o label da pagina --%>

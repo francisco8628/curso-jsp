@@ -9,7 +9,7 @@
 	</welcome-file-list>
 	<filter>
 	   <filter-name>conexao</filter-name>
-	   <filter-class>filter.Filter</filter-class>
+	   <filter-class>filter.Filter</filter-class>  
 	
 	
 	</filter>

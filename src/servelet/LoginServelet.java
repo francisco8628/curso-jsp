@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.BeanCursoJsp;
+import dao.DaoLogin;
 
 
 @WebServlet("/LoginServelet")
 public class LoginServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+     
+    private DaoLogin daoLogin = new DaoLogin();	
    
     public LoginServelet() {
         super();
@@ -33,22 +35,28 @@ public class LoginServelet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			 HttpServletResponse response) throws ServletException, IOException {
 		
-		BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
-		String login =  request.getParameter("login");
-		String senha =  request.getParameter("senha");
-		
-		//System.out.println(request.getParameter("login"));
-		//System.out.println(request.getParameter("senha"));
-		
-		if(beanCursoJsp.ValidarLoginSenha(login,senha)) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
-			dispatcher.forward(request, response);
+		try {
+			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
+			String login =  request.getParameter("login");
+			String senha =  request.getParameter("senha");
 			
-		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
-			dispatcher.forward(request, response);
+			//System.out.println(request.getParameter("login"));
+			//System.out.println(request.getParameter("senha"));
 			
+			if(daoLogin.ValidarLoginSenha(login,senha)) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
+				dispatcher.forward(request, response);
+				
+			}else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
+				dispatcher.forward(request, response);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 	
 	}
 
