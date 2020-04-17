@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class SingleConnection {
-	private static String url = "jdbc:postgresql://localhost:5432/posjava";// url para conexao padrao do POSTGRES
+	private static String url = "jdbc:postgresql://localhost:5432/curso-jsp1?autorReconnect=true";// url para conexao padrao do POSTGRES
 	private static String password = "admin";
 	private static String user = "postgres";
 	private static Connection conection = null; // tem que ser do pacote SQL java
