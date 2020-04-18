@@ -11,20 +11,26 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+
+<link rel= "stylesheet" href = "resourses/css/stilo.css">
+
 </head>
 <body>
-  
-	<form action="LoginServelet" method="post">
+	<div class="login-page">
+		<div class="form">
 
-		Login:<%-- é o label da pagina --%>
-		<input type="text" id="login" name="login">
-		<br /> 
-		Senha: 
-		<input	type="text" id="senha" name="senha">
-		<br /> 
-		<input type="submit" value = "salvar"> <input />
+			<form action="LoginServelet" method="post" class="login-form">
 
-	</form>
+				Login:
+				<%-- é o label da pagina --%>
+				<input type="text" id="login" name="login"> <br /> Senha: <input
+					type="text" id="senha" name="senha"> <br /> 
+					<button type="submit" value="logar">Logar </button>
+
+			</form>
+		</div>
+	</div>
+
 
 
 

@@ -79,7 +79,7 @@ public class DaoUsuario {
 		}
 	}
 
-	public BeanCursoJsp consultar(String login)throws Exception {
+	public BeanCursoJsp consultar(String login)throws Exception {  //consulta usuarios para atualizar
 		String sql = "select *  from usuario where login = '"+login+"'";
 		PreparedStatement consulteUser = connection.prepareStatement(sql);
 		ResultSet resultado = consulteUser.executeQuery();
