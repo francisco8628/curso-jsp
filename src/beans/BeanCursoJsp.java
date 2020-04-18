@@ -10,7 +10,7 @@ public class BeanCursoJsp {
 		return login;
 	}
 
-	public void setLogin(String login,String senha) {
+	public void setLogin(String login) {
 		this.login = login;
 	}
 
@@ -22,16 +22,9 @@ public class BeanCursoJsp {
 		this.senha = senha;
 	}
 
-   public boolean ValidarLoginSenha(String login,String senha) {
-	   
-		if (login.equalsIgnoreCase("admin")&&senha.equalsIgnoreCase("admin")) {
-
-			return true;
-		} else {
-
-			return false;
-		}
+	
+  
 	
 }
 	
-}
+

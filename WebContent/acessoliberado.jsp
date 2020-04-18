@@ -12,6 +12,7 @@
 
 	<jsp:setProperty property="*" name="calcula" />
 	<h3>Seja bem vindo ao Sistema</h3>
+	<a href ="cadastroUsurio.jsp">Cadastro de usuarios</a>
 
 </body>
 </html>
