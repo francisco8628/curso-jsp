@@ -1,6 +1,8 @@
 package servelet;   //se
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,14 +26,32 @@ public class Usuario extends HttpServlet {
         
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			String acao = request.getParameter("acao");
+			String user = request.getParameter("user");
 
+			if (acao.equalsIgnoreCase("delete")) {
+				daoUsuario.delete(user);
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsurio.jsp"); // prepara a pagina para
+																								// redirecionar
+				request.setAttribute("usuarios", daoUsuario.listar()); // pega a lista de usuarios para exibir na tela
+
+				view.forward(request, response); // redireciona para uma paf=gina
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}//fim doPost
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String login =  request.getParameter("login");
 		String senha=  request.getParameter("senha");
+		
+		System.out.println(login);
+		System.out.println(senha);
 		
 		BeanCursoJsp usuario = new BeanCursoJsp();
 		
@@ -39,6 +59,15 @@ public class Usuario extends HttpServlet {
 		usuario.setSenha(senha);
 		daoUsuario.Salvar(usuario);
 		
+		try {
+			RequestDispatcher view  = request.getRequestDispatcher("/cadastroUsurio.jsp"); //prepara a pagina para redirecionar
+			request.setAttribute("usuarios", daoUsuario.listar());  //pega a lista de usuarios para exibir na tela
+			
+			view.forward(request, response); //redireciona para uma paf=gina
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
