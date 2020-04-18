@@ -1,12 +1,13 @@
-package connection;
+package connection;              
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class SingleConnection {
+public class SingleConnection {         //a conexão chama essa classe uma unica vez
 	private static String url = "jdbc:postgresql://localhost:5432/curso-jsp1?autorReconnect=true";// url para conexao padrao do POSTGRES
-	private static String password = "admin";
-	private static String user = "postgres";
+	                                                                                              //colocar autorReconnect = true para caso a conexão com o banco caia
+	private static String password = "admin";     //senha do banco
+	private static String user = "postgres";      //usuario do banco
 	private static Connection conection = null; // tem que ser do pacote SQL java
 
 	static {

@@ -9,6 +9,7 @@ import java.util.List;
 
 import beans.BeanCursoJsp;
 import connection.SingleConnection;
+import servelet.Usuario;
 
 public class DaoUsuario {
 
@@ -51,6 +52,7 @@ public class DaoUsuario {
 
 		while (resultado.next()) {
 			BeanCursoJsp usuario = new BeanCursoJsp();
+			usuario.setId(resultado.getLong("id"));
 			usuario.setLogin(resultado.getString("login"));
 			usuario.setSenha(resultado.getString("senha"));
 			listar.add(usuario);
@@ -71,6 +73,43 @@ public class DaoUsuario {
 			e.printStackTrace();
 			try {
 				 connection.rollback();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+
+	public BeanCursoJsp consultar(String login)throws Exception {
+		String sql = "select *  from usuario where login = '"+login+"'";
+		PreparedStatement consulteUser = connection.prepareStatement(sql);
+		ResultSet resultado = consulteUser.executeQuery();
+		
+		if (resultado.next()) {
+			
+			BeanCursoJsp user = new BeanCursoJsp();
+			user.setId(resultado.getLong("id"));
+			user.setLogin(resultado.getString("login"));
+			user.setSenha(resultado.getString("senha"));
+			
+			return user;
+		}
+		
+		return null;
+	}
+
+	public void atulizar(BeanCursoJsp usuario) {
+		try {
+		String sql = "update  usuario set login = ?, senha = ? where id = "+usuario.getId();
+		PreparedStatement Usuarioupdate = connection.prepareStatement(sql);
+		Usuarioupdate.setString(1, usuario.getLogin());
+		Usuarioupdate.setString(2, usuario.getSenha());
+		Usuarioupdate.executeUpdate();
+		connection.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+			try {
+				connection.rollback();
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}

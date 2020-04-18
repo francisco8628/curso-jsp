@@ -1,4 +1,4 @@
-package servelet;   //se
+package servelet;   //servelet 
 
 import java.io.IOException;
 
@@ -31,6 +31,8 @@ public class Usuario extends HttpServlet {
 		try {
 			String acao = request.getParameter("acao");
 			String user = request.getParameter("user");
+			
+			System.out.println(acao);
 
 			if (acao.equalsIgnoreCase("delete")) {
 				daoUsuario.delete(user);
@@ -39,6 +41,14 @@ public class Usuario extends HttpServlet {
 				request.setAttribute("usuarios", daoUsuario.listar()); // pega a lista de usuarios para exibir na tela
 
 				view.forward(request, response); // redireciona para uma paf=gina
+			} else if (acao.equalsIgnoreCase("editar")) {  //caso seja editar
+				
+				BeanCursoJsp beanCursoJsp = daoUsuario.consultar(user);
+				
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsurio.jsp"); // prepara a pagina para
+				request.setAttribute("user",beanCursoJsp); // pega o usuario consultado
+				view.forward(request, response); // redireciona para uma paf=gina
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,7 +56,7 @@ public class Usuario extends HttpServlet {
 	}//fim doPost
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String id =  request.getParameter("id");
 		String login =  request.getParameter("login");
 		String senha=  request.getParameter("senha");
 		
@@ -55,10 +65,18 @@ public class Usuario extends HttpServlet {
 		
 		BeanCursoJsp usuario = new BeanCursoJsp();
 		
+		usuario.setId(!id.isEmpty()?Long.parseLong(id):0);
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
-		daoUsuario.Salvar(usuario);
 		
+		
+		if(id==null||id.isEmpty()) {
+			daoUsuario.Salvar(usuario);	//se não existir o id salva
+			
+		}else {
+			daoUsuario.atulizar(usuario); //se  existir o id atualiza
+		}
+
 		try {
 			RequestDispatcher view  = request.getRequestDispatcher("/cadastroUsurio.jsp"); //prepara a pagina para redirecionar
 			request.setAttribute("usuarios", daoUsuario.listar());  //pega a lista de usuarios para exibir na tela
