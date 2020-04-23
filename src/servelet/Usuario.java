@@ -27,12 +27,12 @@ public class Usuario extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException { //se o parametro vem por link sempre cai no get
 		try {
-			String acao = request.getParameter("acao");
+			String acao = request.getParameter("acao"); 
 			String user = request.getParameter("user");
 			
-			System.out.println(acao);
+			//System.out.println(acao);
 
 			if (acao.equalsIgnoreCase("delete")) {
 				daoUsuario.delete(user);
@@ -41,7 +41,8 @@ public class Usuario extends HttpServlet {
 				request.setAttribute("usuarios", daoUsuario.listar()); // pega a lista de usuarios para exibir na tela
 
 				view.forward(request, response); // redireciona para uma paf=gina
-			} else if (acao.equalsIgnoreCase("editar")) {  //caso seja editar
+			} else if (acao.equalsIgnoreCase("editar")) {
+				//caso seja editar
 				
 				BeanCursoJsp beanCursoJsp = daoUsuario.consultar(user);
 				
@@ -49,25 +50,46 @@ public class Usuario extends HttpServlet {
 				request.setAttribute("user",beanCursoJsp); // pega o usuario consultado
 				view.forward(request, response); // redireciona para uma paf=gina
 
+			} else if (acao.equalsIgnoreCase("listartodos")) {
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsurio.jsp"); // prepara a pagina para redirecionar
+				request.setAttribute("usuarios", daoUsuario.listar()); // pega a lista de usuarios para exibir na tela
+
+				view.forward(request, response); // redireciona para uma pagina
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}//fim doPost
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id =  request.getParameter("id");
-		String login =  request.getParameter("login");
-		String senha=  request.getParameter("senha");
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println(login);
-		System.out.println(senha);
+		String acao =  request.getParameter("acao");
+		System.out.println(acao);
+		
+		if(acao!= null && acao.equalsIgnoreCase("reset")) { //se for diferente de null e igual a"reset"
+			try {
+			RequestDispatcher view  = request
+					.getRequestDispatcher("/cadastroUsurio.jsp"); //prepara a pagina para redirecionar
+			request.setAttribute("usuarios", daoUsuario.listar());  //pega a lista de usuarios para exibir na tela
+			view.forward(request, response); //redireciona para uma paf=gina
+			
+			}catch (Exception e) {
+				e.printStackTrace();	
+			
+		}
+		}else {
+		String id =  request.getParameter("id"); ////se vier por formulario cai no post
+		String login =  request.getParameter("login");//o nome tem que estar igual ao ecreito na jsp ou tela
+		String senha=  request.getParameter("senha");
+		String nome=  request.getParameter("nome");
 		
 		BeanCursoJsp usuario = new BeanCursoJsp();
 		
 		usuario.setId(!id.isEmpty()?Long.parseLong(id):0);
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
+		usuario.setNome(nome);
 		
 		
 		if(id==null||id.isEmpty()) {
@@ -81,12 +103,15 @@ public class Usuario extends HttpServlet {
 			RequestDispatcher view  = request.getRequestDispatcher("/cadastroUsurio.jsp"); //prepara a pagina para redirecionar
 			request.setAttribute("usuarios", daoUsuario.listar());  //pega a lista de usuarios para exibir na tela
 			
-			view.forward(request, response); //redireciona para uma paf=gina
+			view.forward(request, response); //redireciona para uma pagina
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}//fim catch
 		
-	}
-
+	}//fim else
+		
+	}//fim doPost
 }
+
+

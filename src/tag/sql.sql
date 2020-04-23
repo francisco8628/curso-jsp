@@ -1,0 +1,1 @@
+ALTER TABLE public.usuario ADD COLUMN nome character varying;

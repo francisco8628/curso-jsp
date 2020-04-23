@@ -12,7 +12,7 @@
    <center>
     <h1>Cadastro de Usuários</h1>
      </center>
-	<form action="salvarUsuario" method="post">
+	<form action="salvarUsuario" method="post" id= "formuser">
 	<ul class="form-style-1">
 		 <li>
 			 <table>
@@ -33,11 +33,19 @@
 						<td><input type="password" id="senha" name="senha"
 							value="${user.senha}"></td>
 					</tr>
+					
+					<tr>
+						<td>Nome:</td>
+						<td><input type="text" id="nome" name="nome"
+							value="${user.nome}"></td>
+					</tr>
+					
 
 
 					<tr>
 						<td></td>
-						<td><input type="submit" value="Salvar Usuario"></td>
+						<td><input type="submit" value="Salvar ">
+						<input type="submit" value="Cancelar" onclick="document.getElementById('formuser').action = 'salvarUsuario?acao=reset'"> </td><!-- pega o formulario pelo Id -->
 					</tr>
 					
 				</table>
@@ -46,32 +54,47 @@
 		</ul>
 	</form>
 
-	
-<div class="container">
-   <table class="responsive-table">
-	    <tr>
+
+	<div class="container">
+		<table class="responsive-table">
+			<tr>
+				<%--  Adiciona linha --%>
 				<th>Id</th>
+				<%-- nome a  coluna 1 --%>
 				<th>Login</th>
+				<%-- nome a  coluna 2 --%>
 				<th>Nome</th>
+				<%-- nome a  coluna 3--%>
 				<th>Delete</th>
+				<%-- nome a  coluna 4 --%>
 				<th>Editar</th>
+				<%-- nome a  coluna 5 --%>
+
 			</tr>
 
-			<c:forEach items="${usuarios}" var="user">;
+			<caption>Usuarios Cadastrados</caption>
+			<c:forEach items="${usuarios}" var="user">
    		        <tr>
 					<td Style="width: 150px"><c:out value="${user.id}">
+							<%-- estilo da celula Id e o valor que vem do parametro da  ${} = expressão linguage JSP--%>
 						</c:out></td>
 					<td Style="width: 150px"><c:out value="${user.login}">
 						</c:out></td>
-					<td><c:out value="${user.senha}"></c:out></td>
+					<td><c:out value="${user.nome}"></c:out></td>
 
-					<td><a href="salvarUsuario?acao=delete&user=${user.login }">Excluir</a></td>
-					<td><a href="salvarUsuario?acao=editar&user=${user.login }">Editar</a></td>
+					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
+							src="resourses/img/excluir.png" alt="Excluir" title="Excluir"
+							width="20px" height="20px"></a></td>
+					<%--  Adiciona icones Png --%>
+					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img
+							src="resourses/img/editar.png" alt="Editar" title="Editar"
+							width="20px" height="20px"></a></td>
+					<%--  Adiciona icones Png --%>
 				</tr>
 			</c:forEach>
 		</table>
-	
-</div>
+
+	</div>
 
 
 </body>

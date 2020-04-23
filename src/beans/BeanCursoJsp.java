@@ -6,7 +6,23 @@ public class BeanCursoJsp {
 
 	private String senha;
 	
+	private String nome;
+	
 	private Long id;
+	
+	
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getLogin() {
 		return login;

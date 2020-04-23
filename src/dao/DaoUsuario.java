@@ -24,10 +24,11 @@ public class DaoUsuario {
 	public void Salvar(BeanCursoJsp usuario) {
 		try {
 
-			String sql = "insert into usuario(login,senha) values(?,?)";
+			String sql = "insert into usuario(login,senha,nome) values(?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
+			insert.setString(3, usuario.getNome());
 			insert.execute();
 			connection.commit();
 
@@ -55,15 +56,16 @@ public class DaoUsuario {
 			usuario.setId(resultado.getLong("id"));
 			usuario.setLogin(resultado.getString("login"));
 			usuario.setSenha(resultado.getString("senha"));
+			usuario.setNome(resultado.getString("nome"));
 			listar.add(usuario);
 		}
 
 		return listar;
 	}// fim listar
 	
-	public void delete(String login) {
+	public void delete(String id) {
 		try {
-		String sql = "delete  from usuario where login = '"+login+"'";
+		String sql = "delete  from usuario where id= '"+id+"'";
 		PreparedStatement deleteUser = connection.prepareStatement(sql);
 		 deleteUser.execute();
 		 
@@ -79,8 +81,8 @@ public class DaoUsuario {
 		}
 	}
 
-	public BeanCursoJsp consultar(String login)throws Exception {  //consulta usuarios para atualizar
-		String sql = "select *  from usuario where login = '"+login+"'";
+	public BeanCursoJsp consultar(String id)throws Exception {  //consulta usuarios para atualizar
+		String sql = "select *  from usuario where id = '"+id+"'";
 		PreparedStatement consulteUser = connection.prepareStatement(sql);
 		ResultSet resultado = consulteUser.executeQuery();
 		
@@ -90,6 +92,7 @@ public class DaoUsuario {
 			user.setId(resultado.getLong("id"));
 			user.setLogin(resultado.getString("login"));
 			user.setSenha(resultado.getString("senha"));
+			user.setNome(resultado.getString("nome"));
 			
 			return user;
 		}
@@ -99,10 +102,11 @@ public class DaoUsuario {
 
 	public void atulizar(BeanCursoJsp usuario) {
 		try {
-		String sql = "update  usuario set login = ?, senha = ? where id = "+usuario.getId();
+		String sql = "update  usuario set login = ?, senha = ?, nome=? where id = "+usuario.getId();
 		PreparedStatement Usuarioupdate = connection.prepareStatement(sql);
 		Usuarioupdate.setString(1, usuario.getLogin());
 		Usuarioupdate.setString(2, usuario.getSenha());
+		Usuarioupdate.setString(3,usuario.getNome());
 		Usuarioupdate.executeUpdate();
 		connection.commit();
 		}catch (Exception e) {
