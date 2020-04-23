@@ -11,7 +11,9 @@
 <body>
    <center>
     <h1>Cadastro de Usuários</h1>
+     <h3 style = "color: red;">${msg}</h3>
      </center>
+    
 	<form action="salvarUsuario" method="post" id= "formuser">
 	<ul class="form-style-1">
 		 <li>

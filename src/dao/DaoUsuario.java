@@ -118,5 +118,21 @@ public class DaoUsuario {
 				e2.printStackTrace();
 			}
 		}
-	}
+	}//fim atualizar
+	
+	public boolean ValidarLogin(String login)throws Exception {
+		
+		String sql = "select count(1) as qtd from usuario where login = '"+login+"'";
+		
+		PreparedStatement UserValido = connection.prepareStatement(sql);
+		ResultSet resultado =  UserValido.executeQuery();
+		
+		if (resultado.next()) {
+			
+			return resultado.getInt("qtd")<=0;/* se a quantidade for igual a 0 retorna verdadeiro*/
+		}
+	        return false;                       /* se a quantidade maior que usuario ja existe 0 retorna verdadeiro*/                 
+		
+	}//fim atualizar
+	
 }

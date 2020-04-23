@@ -91,15 +91,21 @@ public class Usuario extends HttpServlet {
 		usuario.setSenha(senha);
 		usuario.setNome(nome);
 		
+		try {
+			if(id==null||id.isEmpty()&& !daoUsuario.ValidarLogin(login)){
+				
+				request.setAttribute("msg","Este login não é valido");
+			}
 		
-		if(id==null||id.isEmpty()) {
+		if(id==null||id.isEmpty()
+				&&daoUsuario.ValidarLogin(login)&& nome==null) {
 			daoUsuario.Salvar(usuario);	//se não existir o id salva
 			
-		}else {
+		}else if (id!=null && !id.isEmpty()){
 			daoUsuario.atulizar(usuario); //se  existir o id atualiza
 		}
 
-		try {
+		
 			RequestDispatcher view  = request.getRequestDispatcher("/cadastroUsurio.jsp"); //prepara a pagina para redirecionar
 			request.setAttribute("usuarios", daoUsuario.listar());  //pega a lista de usuarios para exibir na tela
 			
