@@ -24,11 +24,12 @@ public class DaoUsuario {
 	public void Salvar(BeanCursoJsp usuario) {
 		try {
 
-			String sql = "insert into usuario(login,senha,nome) values(?,?,?)";
+			String sql = "insert into usuario(login,senha,nome,telefone) values(?,?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
 			insert.setString(3, usuario.getNome());
+			insert.setString(4, usuario.getTelefone());
 			insert.execute();
 			connection.commit();
 
@@ -57,6 +58,7 @@ public class DaoUsuario {
 			usuario.setLogin(resultado.getString("login"));
 			usuario.setSenha(resultado.getString("senha"));
 			usuario.setNome(resultado.getString("nome"));
+			usuario.setTelefone(resultado.getString("telefone"));
 			listar.add(usuario);
 		}
 
@@ -93,6 +95,7 @@ public class DaoUsuario {
 			user.setLogin(resultado.getString("login"));
 			user.setSenha(resultado.getString("senha"));
 			user.setNome(resultado.getString("nome"));
+			user.setTelefone(resultado.getString("telefone"));
 			
 			return user;
 		}
@@ -102,11 +105,12 @@ public class DaoUsuario {
 
 	public void atulizar(BeanCursoJsp usuario) {
 		try {
-		String sql = "update  usuario set login = ?, senha = ?, nome=? where id = "+usuario.getId();
+		String sql = "update  usuario set login = ?, senha = ?, nome=?, telefone=? where id = "+usuario.getId();
 		PreparedStatement Usuarioupdate = connection.prepareStatement(sql);
 		Usuarioupdate.setString(1, usuario.getLogin());
 		Usuarioupdate.setString(2, usuario.getSenha());
 		Usuarioupdate.setString(3,usuario.getNome());
+		Usuarioupdate.setString(4,usuario.getTelefone());
 		Usuarioupdate.executeUpdate();
 		connection.commit();
 		}catch (Exception e) {

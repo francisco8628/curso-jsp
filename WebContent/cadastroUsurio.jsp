@@ -42,12 +42,20 @@
 							value="${user.nome}"></td>
 					</tr>
 					
+					<tr>
+						<td>Telefone:</td>
+						<td><input type="text" id="telefone" name="telefone"
+							value="${user.telefone}"></td>
+					</tr>
+					
 
 
 					<tr>
 						<td></td>
-						<td><input type="submit" value="Salvar ">
-						<input type="submit" value="Cancelar" onclick="document.getElementById('formuser').action = 'salvarUsuario?acao=reset'"> </td><!-- pega o formulario pelo Id -->
+						<td>
+						<input type="submit" value="Salvar">
+						<input type="submit" value="Cancelar" onclick="document.getElementById('formuser').action = 'salvarUsuario?acao=reset'"> 
+						</td><!-- pega o formulario pelo Id -->
 					</tr>
 					
 				</table>
@@ -67,10 +75,13 @@
 				<%-- nome a  coluna 2 --%>
 				<th>Nome</th>
 				<%-- nome a  coluna 3--%>
+				<th>Telefone</th>
+				<%-- nome a  coluna 3--%>
 				<th>Delete</th>
 				<%-- nome a  coluna 4 --%>
 				<th>Editar</th>
 				<%-- nome a  coluna 5 --%>
+				
 
 			</tr>
 
@@ -82,15 +93,14 @@
 						</c:out></td>
 					<td Style="width: 150px"><c:out value="${user.login}">
 						</c:out></td>
-					<td><c:out value="${user.nome}"></c:out></td>
+					<td><c:out value="${user.nome}">
+					</c:out></td>
+					<td><c:out value="${user.telefone}">
+					</c:out></td>
 
-					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
-							src="resourses/img/excluir.png" alt="Excluir" title="Excluir"
-							width="20px" height="20px"></a></td>
+					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img src="resourses/img/excluir.png" alt="Excluir" title="Excluir"width="20px" height="20px"></a></td>
 					<%--  Adiciona icones Png --%>
-					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img
-							src="resourses/img/editar.png" alt="Editar" title="Editar"
-							width="20px" height="20px"></a></td>
+					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img src="resourses/img/editar.png" alt="Editar" title="Editar"width="20px" height="20px"></a></td>
 					<%--  Adiciona icones Png --%>
 				</tr>
 			</c:forEach>
