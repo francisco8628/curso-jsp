@@ -96,16 +96,37 @@ public class Usuario extends HttpServlet {
 			usuario.setTelefone(telefone);
 
 			try {
-				if (id == null || id.isEmpty() && !daoUsuario.ValidarLogin(login)) {
-
-					request.setAttribute("msg", "Este login não é valido");
+				if (id == null || id.isEmpty() && !daoUsuario.ValidarLogin(login)||!daoUsuario.ValidarSenha(senha)) {
+					 String msg = "";
+					if(id == null || id.isEmpty() && !daoUsuario.ValidarLogin(login)) {
+					 msg = "Este login não é valido, ja existe";
+					}
+					if(id == null || id.isEmpty() && !daoUsuario.ValidarSenha(senha)) {
+						
+						msg = "Esta senha não é valida, ja existe";
+					}
+					
+                   
+					request.setAttribute("msg", msg);
 				}
 
-			    if (id == null || id.isEmpty() && daoUsuario.ValidarLogin(login)) {
+			    if (id == null || id.isEmpty() && daoUsuario.ValidarLogin(login)&&daoUsuario.ValidarSenha(senha)) { //salva usuario
 					daoUsuario.Salvar(usuario); // se não existir o id salva
 
-				} else if (id != null && !id.isEmpty()) {
+				} else if (id != null && !id.isEmpty()) {   //atualiza usuario
+					 String msg = "";
+					if(!daoUsuario.ValidarLoginUpdate(login, id)||!daoUsuario.ValidarSenhaUpdate(senha, id)) {//expressão negada
+						if(!daoUsuario.ValidarLoginUpdate(login, id)) {
+						
+					     msg = "Nome de Usuario invalido";
+						}else if(!daoUsuario.ValidarSenhaUpdate(senha, id)) {
+							
+							  msg = "senha invalida";	
+						}
+					}else {
 					daoUsuario.atulizar(usuario); // se existir o id atualiza
+					}//fim else atulizar
+					request.setAttribute("msg",msg);
 				} // fim else
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsurio.jsp"); // prepara a pagina para

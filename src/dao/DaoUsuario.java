@@ -137,6 +137,52 @@ public class DaoUsuario {
 		}
 	        return false;                       /* se a quantidade maior que usuario ja existe 0 retorna verdadeiro*/                 
 		
-	}//fim atualizar
+	}//fim validar login
 	
+public boolean ValidarLoginUpdate(String login, String id)throws Exception {
+		
+		String sql = "select count(1) as qtd from usuario where login = '"+login+"'and id<> "+id;
+		//selecionar uma contagem da tabela usuario onde o login não seja igual ao login passado
+		// e o id seja diferente do id passado
+		PreparedStatement UserValido = connection.prepareStatement(sql);
+		ResultSet resultado =  UserValido.executeQuery();
+		
+		if (resultado.next()) {
+			
+			return resultado.getInt("qtd")<=0;/* se a quantidade for igual a 0 retorna verdadeiro*/
+		}
+	        return false;                       /* se a quantidade maior que usuario ja existe 0 retorna verdadeiro*/                 
+		
+	}//fim atualizarUpdate
+
+public boolean ValidarSenha(String senha)throws Exception {
+	
+	String sql = "select count(1) as qtd from usuario where senha = '"+senha+"'";
+	
+	PreparedStatement UserValido = connection.prepareStatement(sql);
+	ResultSet resultado =  UserValido.executeQuery();
+	
+	if (resultado.next()) {
+		
+		return resultado.getInt("qtd")<=0;/* se a quantidade for igual a 0 retorna verdadeiro*/
+	}
+        return false;                       /* se a quantidade maior que usuario ja existe 0 retorna verdadeiro*/                 
+	
+}//fim validar senha
+
+public boolean ValidarSenhaUpdate(String senha, String id)throws Exception {
+	
+	String sql = "select count(1) as qtd from usuario where senha= '"+senha+"'and id<> "+id;
+	//selecionar uma contagem da tabela usuario onde o login não seja igual ao login passado
+	// e o id seja diferente do id passado
+	PreparedStatement UserValido = connection.prepareStatement(sql);
+	ResultSet resultado =  UserValido.executeQuery();
+	
+	if (resultado.next()) {
+		
+		return resultado.getInt("qtd")<=0;/* se a quantidade for igual a 0 retorna verdadeiro*/
+	}
+        return false;                       /* se a quantidade maior que usuario ja existe 0 retorna verdadeiro*/                 
+	
+}//fim validar senhaupdate
 }
